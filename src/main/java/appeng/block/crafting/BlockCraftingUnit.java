@@ -142,6 +142,31 @@ public class BlockCraftingUnit extends AEBaseTileBlock {
     }
 
     public enum CraftingUnitType {
-        UNIT, ACCELERATOR, STORAGE_1K, STORAGE_4K, STORAGE_16K, STORAGE_64K, MONITOR
+        UNIT,
+
+        ACCELERATOR_1,
+        ACCELERATOR_4,
+        ACCELERATOR_16,
+        ACCELERATOR_64,
+        ACCELERATOR_256,
+        ACCELERATOR_1M,
+        ACCELERATOR_4M,
+        ACCELERATOR_16M,
+        ACCELERATOR_64M,
+
+        STORAGE_1K,
+        STORAGE_4K,
+        STORAGE_16K,
+        STORAGE_64K,
+        STORAGE_256K,
+        STORAGE_1M,
+        STORAGE_4M,
+        STORAGE_16M,
+        STORAGE_64M,
+        STORAGE_256M,
+        STORAGE_512M,
+        STORAGE_1024M,
+
+        MONITOR
     }
 }

@@ -171,7 +171,23 @@ public interface IBlocks
 	// rv1
 	ITileDefinition craftingUnit();
 
-	ITileDefinition craftingAccelerator();
+	ITileDefinition craftingAccelerator1();
+
+	ITileDefinition craftingAccelerator4();
+
+	ITileDefinition craftingAccelerator16();
+
+	ITileDefinition craftingAccelerator64();
+
+	ITileDefinition craftingAccelerator256();
+
+	ITileDefinition craftingAccelerator1m();
+
+	ITileDefinition craftingAccelerator4m();
+
+	ITileDefinition craftingAccelerator16m();
+
+	ITileDefinition craftingAccelerator64m();
 
 	ITileDefinition craftingStorage1k();
 
@@ -180,6 +196,23 @@ public interface IBlocks
 	ITileDefinition craftingStorage16k();
 
 	ITileDefinition craftingStorage64k();
+
+	ITileDefinition craftingStorage256k();
+
+	ITileDefinition craftingStorage1m();
+
+	ITileDefinition craftingStorage4m();
+
+	ITileDefinition craftingStorage16m();
+
+	ITileDefinition craftingStorage64m();
+
+	ITileDefinition craftingStorage256m();
+
+	ITileDefinition craftingStorage512m();
+
+	ITileDefinition craftingStorage1024m();
+
 
 	ITileDefinition craftingMonitor();
 

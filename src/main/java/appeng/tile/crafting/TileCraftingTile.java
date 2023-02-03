@@ -33,7 +33,6 @@ import appeng.api.storage.data.IAEItemStack;
 import appeng.api.util.AEPartLocation;
 import appeng.api.util.WorldCoord;
 import appeng.block.crafting.BlockCraftingUnit;
-import appeng.block.crafting.BlockCraftingUnit.CraftingUnitType;
 import appeng.me.cluster.IAECluster;
 import appeng.me.cluster.IAEMultiBlock;
 import appeng.me.cluster.implementations.CraftingCPUCalculator;
@@ -71,13 +70,7 @@ public class TileCraftingTile extends AENetworkTile implements IAEMultiBlock, IP
     @Override
     protected ItemStack getItemFromTile(final Object obj) {
         Optional<ItemStack> is = Optional.empty();
-
-        if (((TileCraftingTile) obj).isAccelerator()) {
-            is = AEApi.instance().definitions().blocks().craftingAccelerator().maybeStack(1);
-        } else {
             is = AEApi.instance().definitions().blocks().craftingUnit().maybeStack(1);
-        }
-
         return is.orElseGet(() -> super.getItemFromTile(obj));
     }
 
@@ -95,13 +88,12 @@ public class TileCraftingTile extends AENetworkTile implements IAEMultiBlock, IP
         }
     }
 
-    public boolean isAccelerator() {
-        if (this.world == null) {
-            return false;
-        }
+    public int getAcceleration(){
+        return 0;
+    }
 
-        final BlockCraftingUnit unit = (BlockCraftingUnit) this.world.getBlockState(this.pos).getBlock();
-        return unit.type == CraftingUnitType.ACCELERATOR;
+    public boolean isAccelerator() {
+            return false;
     }
 
     @Override

@@ -331,13 +331,24 @@ public class Platform {
             x = tile.getPos().getX();
             y = tile.getPos().getY();
             z = tile.getPos().getZ();
+        } else {
+            if (p.openContainer instanceof IInventorySlotAware) {
+                x = ((IInventorySlotAware) p.openContainer).getInventorySlot();
+                y = ((IInventorySlotAware) p.openContainer).isBaubleSlot() ? 1 : 0;
+            } else {
+                x = p.inventory.currentItem;
+            }
         }
 
         if ((type.getType().isItem() && tile == null) || type.hasPermissions(tile, x, y, z, side, p)) {
             if (tile == null && type.getType() == GuiHostType.ITEM) {
-                p.openGui(AppEng.instance(), type.ordinal() << 4, p.getEntityWorld(), p.inventory.currentItem, 0, 0);
+                p.openGui(AppEng.instance(), type.ordinal() << 4, p.getEntityWorld(), x, 0, 0);
             } else if (tile == null || type.getType() == GuiHostType.ITEM) {
-                p.openGui(AppEng.instance(), type.ordinal() << 4 | (1 << 3), p.getEntityWorld(), x, y, z);
+                if (tile != null) {
+                    p.openGui(AppEng.instance(), type.ordinal() << 4 | (1 << 3), p.getEntityWorld(), x, y, z);
+                } else {
+                    p.openGui(AppEng.instance(), type.ordinal() << 4, p.getEntityWorld(), x, y, z);
+                }
             } else {
                 p.openGui(AppEng.instance(), type.ordinal() << 4 | (side.ordinal()), tile.getWorld(), x, y, z);
             }
@@ -350,9 +361,7 @@ public class Platform {
         }
 
         if (type.getType().isItem()) {
-            if (type.getType() == GuiHostType.ITEM) {
-                p.openGui(AppEng.instance(), type.ordinal() << 4, p.getEntityWorld(), slot, isBauble ? 1 : 0, Integer.MIN_VALUE);
-            }
+            p.openGui(AppEng.instance(), type.ordinal() << 4, p.getEntityWorld(), slot, isBauble ? 1 : 0, Integer.MIN_VALUE);
         }
     }
 

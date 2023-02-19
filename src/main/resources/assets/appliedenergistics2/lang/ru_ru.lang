@@ -463,7 +463,7 @@ item.appliedenergistics2.material.calculation_processor.name=Вычислите�
 item.appliedenergistics2.material.card_capacity.name=Карта ёмкости
 item.appliedenergistics2.material.card_pattern_expansion.name=Карта расширения шаблона
 item.appliedenergistics2.material.card_magnet.name=Магнитная карта
-item.appliedenergistics2.material.card_magnet.usage=Щёлкните ПКМ пустой рукой по терминулу, чтобы включить или выключить
+item.appliedenergistics2.material.card_magnet.usage=Щёлкните ПКМ пустой рукой по терминалу, чтобы включить или выключить
 item.appliedenergistics2.material.card_magnet.partition=Можно настроить в верстаке для ячеек
 item.appliedenergistics2.material.card_quantum_link.name=Карта квантовой связи
 item.appliedenergistics2.material.card_fuzzy.name=Карта нечёткости
@@ -607,7 +607,7 @@ commands.ae2.ChunkLoggerOff=Логирование чанков выключен
 commands.ae2.Supporters=Отображает список поддержавших AE2
 
 // Achievements
-achievement.ae2.Root=Applied Energistics! Падите ниц!
+achievement.ae2.Root=Applied Energistics
 achievement.ae2.Root.desc=Когда сундука уже не хватает...
 achievement.ae2.Compass=Охотник за метеоритами!
 achievement.ae2.Compass.desc=Сделайте метеоритный компас!

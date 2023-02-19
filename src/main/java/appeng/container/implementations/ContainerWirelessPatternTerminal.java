@@ -134,9 +134,7 @@ public class ContainerWirelessPatternTerminal extends ContainerPatternEncoder im
             if (currentItem.isEmpty()) {
                 this.setValidContainer(false);
             } else if (!this.wirelessTerminalGUIObject.getItemStack().isEmpty() && currentItem != this.wirelessTerminalGUIObject.getItemStack()) {
-                if (ItemStack.areItemsEqual(this.wirelessTerminalGUIObject.getItemStack(), currentItem)) {
-                    this.getPlayerInv().setInventorySlotContents(this.getPlayerInv().currentItem, this.wirelessTerminalGUIObject.getItemStack());
-                } else {
+                if (!ItemStack.areItemsEqual(this.wirelessTerminalGUIObject.getItemStack(), currentItem)) {
                     this.setValidContainer(false);
                 }
             }
@@ -144,7 +142,14 @@ public class ContainerWirelessPatternTerminal extends ContainerPatternEncoder im
             // drain 1 ae t
             this.ticks++;
             if (this.ticks > 10) {
-                this.wirelessTerminalGUIObject.extractAEPower(this.getPowerMultiplier() * this.ticks, Actionable.MODULATE, PowerMultiplier.CONFIG);
+                double ext = this.wirelessTerminalGUIObject.extractAEPower(this.getPowerMultiplier() * this.ticks, Actionable.MODULATE, PowerMultiplier.CONFIG);
+                if (ext < this.getPowerMultiplier() * this.ticks) {
+                    if (Platform.isServer() && this.isValidContainer()) {
+                        this.getPlayerInv().player.sendMessage(PlayerMessages.DeviceNotPowered.get());
+                    }
+
+                    this.setValidContainer(false);
+                }
                 this.ticks = 0;
             }
 
@@ -164,23 +169,25 @@ public class ContainerWirelessPatternTerminal extends ContainerPatternEncoder im
 
     @Override
     public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
-        if (clickTypeIn == ClickType.PICKUP && dragType == 1) {
-            if (this.inventorySlots.get(slotId) == magnetSlot) {
-                ItemStack itemStack = magnetSlot.getStack();
-                if (!magnetSlot.getStack().isEmpty()) {
-                    NBTTagCompound tag = itemStack.getTagCompound();
-                    if (tag == null) {
-                        tag = new NBTTagCompound();
+        if (slotId >= 0 && slotId < this.inventorySlots.size()) {
+            if (clickTypeIn == ClickType.PICKUP && dragType == 1) {
+                if (this.inventorySlots.get(slotId) == magnetSlot) {
+                    ItemStack itemStack = magnetSlot.getStack();
+                    if (!magnetSlot.getStack().isEmpty()) {
+                        NBTTagCompound tag = itemStack.getTagCompound();
+                        if (tag == null) {
+                            tag = new NBTTagCompound();
+                        }
+                        if (tag.hasKey("enabled")) {
+                            boolean e = tag.getBoolean("enabled");
+                            tag.setBoolean("enabled", !e);
+                        } else {
+                            tag.setBoolean("enabled", false);
+                        }
+                        magnetSlot.getStack().setTagCompound(tag);
+                        magnetSlot.onSlotChanged();
+                        return ItemStack.EMPTY;
                     }
-                    if (tag.hasKey("enabled")) {
-                        boolean e = tag.getBoolean("enabled");
-                        tag.setBoolean("enabled", !e);
-                    } else {
-                        tag.setBoolean("enabled", false);
-                    }
-                    magnetSlot.getStack().setTagCompound(tag);
-                    magnetSlot.onSlotChanged();
-                    return ItemStack.EMPTY;
                 }
             }
         }
